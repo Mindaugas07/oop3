@@ -204,7 +204,7 @@
 
 # class Vehicle:
 #     CHARGES = 100
-    
+
 #     def __init__(
 #         self,
 #         seating_capacity: int,
@@ -310,4 +310,181 @@
 # print(train.get_fuel_consumption())
 # print(taxi.make_sound())
 
+# *********************************ABSTRACTMETHOD***************************************
 
+from abc import ABC, abstractmethod
+
+
+# class Vehicle(ABC):
+#     @abstractmethod
+#     def get_vehicle_type(self) -> str:
+#         pass
+
+#     def return_color(self) -> str:
+#         return "White"
+
+
+# class Plane(Vehicle):
+#     def get_vehicle_type(self) -> str:
+#         return "Plane"
+
+
+# plane = Plane()
+# print(plane.return_color())
+
+
+# class Animal(ABC):
+#     def __init__(self, name: str) -> None:
+#         self.name: str = name
+
+#     @abstractmethod
+#     def speak(self) -> None:
+#         pass
+
+#     def get_name(self) -> str:
+#         return self.name
+
+# class Dog(Animal):
+#     def __init__(self, name: str) -> None:
+#         super().__init__(name)
+
+#     def speak(self) -> str:
+#         return f"Dog says Woof!"
+
+# class Cat(Animal):
+#     def __init__(self, name: str) -> None:
+#         super().__init__(name)
+
+#     def speak(self) -> str:
+#         return f"Cat says Meow!"
+
+
+class Money(ABC):
+    def __init__(self, currency: str, value: float) -> None:
+        self.currency: str = currency
+        self.value: float = value
+
+    def get_value(self) -> float:
+        return f"Value is {self.value}"
+
+    def get_currency(self) -> str:
+        return f"Currency is {self.currency}"
+
+    @abstractmethod
+    def convert_to_currency(self, target_currency: str, conversion_rate: float) -> None:
+        pass
+
+
+class Cash(Money):
+    def __init__(self, currency: str, value: float) -> None:
+        super().__init__(currency, value)
+
+    def convert_to_currency(
+        self, target_currency: "Cash", conversion_rate: float
+    ) -> float:
+        converted: float = self.value * conversion_rate
+        return f" {self.value} of {self.currency} equals {converted} {target_currency.currency}"
+
+
+class Card(Money):
+    def __init__(self, currency: str, value: float, credit_limit: float) -> None:
+        super().__init__(currency, value)
+        self.credit_limit: float = credit_limit
+
+    def convert_to_currency(
+        self, target_currency: "Card", conversion_rate: float
+    ) -> float:
+        converted: float = self.credit_limit * conversion_rate
+        return f" {self.credit_limit} of credit limit on card in {self.currency} equals {converted} {target_currency.currency}"
+
+
+cash_eur = Cash("EUR", 100.0)
+cash_nok = Cash("NOK", 25000.0)
+
+card_eur = Card("EUR", 1500.0, 45000.0)
+card_usd = Card("USD", 4500.0, 100000.0)
+
+print(cash_eur.convert_to_currency(cash_nok, 10.1))
+print(card_eur.convert_to_currency(card_usd, 1.2))
+
+
+# class Building(ABC):
+#     def __init__(self, levels: int, purpose: str) -> None:
+#         super().__init__()
+#         self.levels: int = levels
+#         self.purpose: str = purpose
+
+#     def get_purpose(self) -> str:
+#         return self.purpose
+
+#     def get_level_number(self) -> int:
+#         return self.levels
+
+#     @abstractmethod
+#     def get_material(self) -> None:
+#         pass
+
+#     @abstractmethod
+#     def get_roof(self) -> None:
+#         pass
+
+#     @abstractmethod
+#     def has_basement(self) -> None:
+#         pass
+
+
+# class Skyscraper(Building):
+#     def __init__(
+#         self, levels: int, purpose: str, material: str, basement: bool, roof: str
+#     ) -> None:
+#         super().__init__(levels, purpose)
+#         self.material: str = material
+#         self.basement: bool = basement
+#         self.roof: str = roof
+
+#     def get_material(self) -> str:
+#         return self.material
+
+#     def has_basement(self) -> None:
+#         if self.basement:
+#             return "Has basement"
+#         else:
+#             return "Does not have basement"
+
+#     def get_roof(self) -> None:
+#         return self.roof
+
+
+# class BrickBuilding(Building):
+#     def __init__(
+#         self, levels: int, purpose: str, material: str, basement: bool, roof: str
+#     ) -> None:
+#         super().__init__(levels, purpose)
+#         self.material: str = material
+#         self.basement: bool = basement
+#         self.roof: str = roof
+
+#     def get_material(self) -> str:
+#         return self.material
+
+#     def has_basement(self) -> None:
+#         if self.basement:
+#             return "Has basement"
+#         else:
+#             return "Does not have basement"
+
+#     def get_roof(self) -> None:
+#         return self.roof
+
+
+# sky = Skyscraper(
+#     levels=35, purpose="offices", material="glass", basement=False, roof="Glass"
+# )
+# brick = BrickBuilding(
+#     levels=2, purpose="residential", material="bricks", basement=True, roof="triangle"
+# )
+
+# print(sky.get_material())
+# print(brick.has_basement())
+# print(brick.get_material())
+# print(sky.has_basement())
