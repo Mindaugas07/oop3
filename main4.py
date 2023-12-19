@@ -126,25 +126,71 @@
 # print(new_string)
 
 
-class PrimeNumbers:
-    PRIME_NUMBER_LIST = []
+# class PrimeNumbers:
+#     PRIME_NUMBER_LIST = []
 
-    @classmethod
-    def prime_numbers(cls, number: int) -> list:
-        for num in range(2, number):
-            flag = 0
-            if number < 2:
-                return cls.PRIME_NUMBER_LIST
-            if number == 2:
-                cls.PRIME_NUMBER_LIST.append(2)
-            for x in range(2, num):
-                if (num % x) == 0:
-                    flag = 1
-            if flag == 0:
-                cls.PRIME_NUMBER_LIST.append(num)
+#     @classmethod
+#     def prime_numbers(cls, number: int) -> list:
+#         if number < 3:
+#             return cls.PRIME_NUMBER_LIST
+#         for num in range(2, number):
+#             flag = 0
+#             for x in range(2, num):
+#                 if (num % x) == 0:
+#                     flag = 1
+#             if flag == 0:
+#                 cls.PRIME_NUMBER_LIST.append(num)
 
-        return cls.PRIME_NUMBER_LIST
+#         return cls.PRIME_NUMBER_LIST
 
 
-prime_number_check: PrimeNumbers = PrimeNumbers.prime_numbers(9)
-print(prime_number_check)
+# prime_number_check: PrimeNumbers = PrimeNumbers.prime_numbers(3)
+# print(prime_number_check)
+
+
+# class BankAccount:
+#     def __init__(self, balance=0) -> None:
+#         self.balance = balance
+
+#     def deposit(self, deposit_amount: float) -> float:
+#         self.balance += deposit_amount
+
+#     def withdraw(self, withdraw_amount: float) -> float:
+#         if withdraw_amount > self.balance:
+#             print("Insufficient funds")
+#         else:
+#             self.balance -= withdraw_amount
+
+#     @classmethod
+#     def from_balance(cls, starting_balance: float) -> "BankAccount":
+#         new_balance = starting_balance
+#         return cls(new_balance)
+
+#     @staticmethod
+#     def transfer(
+#         account_one: "BankAccount", account_two: "BankAccount", amount: float
+#     ) -> "BankAccount":
+#         account_one.withdraw(amount)
+#         account_two.deposit(amount)
+
+
+# bank_acc_one = BankAccount()
+# bank_acc_one.deposit(15.5)
+# print(bank_acc_one.balance)
+# bank_acc_one.withdraw(14)
+# print(bank_acc_one.balance)
+
+# bank_acc_three = BankAccount.from_balance(250)
+# print(bank_acc_three.balance)
+# bank_acc_four = BankAccount.from_balance(800)
+# print(bank_acc_four.balance)
+
+# BankAccount.transfer(bank_acc_four, bank_acc_three, 150)
+# print(bank_acc_three.balance)
+
+from typing import List
+
+
+class SpaceStation:
+    def __init__(self, astronauts: List[dict]) -> None:
+        self.astronauts = astronauts
